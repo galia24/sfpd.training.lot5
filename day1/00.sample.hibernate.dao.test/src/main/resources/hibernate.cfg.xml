@@ -1,0 +1,72 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+        <!-- JDBC for H2 Database connection settings -->
+        <property name="connection.driver_class">org.h2.Driver</property>
+        <property name="connection.url">jdbc:h2:mem:testdb</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password"></property>
+		<property name="dialect">org.hibernate.dialect.H2Dialect</property>
+		
+        <!-- JDBC for HSQL Database connection settings -->
+		<!-- 
+		<property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="connection.url">jdbc:hsqldb:mem:javaguides</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password"></property>
+		<property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+		-->
+        
+		<!-- JDBC for MySQL Database connection settings -->
+		<!-- 
+		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/hibernate_db?useSSL=false</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+		-->
+
+        <!-- JDBC for Derby Database connection settings -->
+        <!-- 
+		<property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+        <property name="hibernate.connection.url">jdbc:derby://localhost:1527/testdb</property>
+        <property name="hibernate.connection.username">app</property>
+        <property name="hibernate.connection.password">ap</property>
+        <property name="dialect">org.hibernate.dialect.DerbyDialect</property>       
+		-->
+
+		<!-- JDBC connection pool settings ... using built-in test pool -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- Echo the SQL to stdout -->
+		<property name="show_sql">true</property>
+
+		<!-- Set the current session context -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">create-drop</property>
+
+		<!-- dbcp connection pool configuration -->
+		<property name="hibernate.dbcp.initialSize">5</property>
+		<property name="hibernate.dbcp.maxTotal">20</property>
+		<property name="hibernate.dbcp.maxIdle">10</property>
+		<property name="hibernate.dbcp.minIdle">5</property>
+		<property name="hibernate.dbcp.maxWaitMillis">-1</property>
+
+		<!-- Mappings -->
+		<!-- <mapping class="declare.your.entities.here" /> -->
+		<mapping class="io.hackages.learning.model.Product" />
+		<mapping class="io.hackages.learning.model.Client" />
+		<mapping class="io.hackages.learning.model.Order" />
+		<mapping class="io.hackages.learning.model.OrderDetail" />
+		<mapping class="io.hackages.learning.model.Invoice" />
+
+	</session-factory>
+
+</hibernate-configuration>
