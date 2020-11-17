@@ -62,6 +62,10 @@
 		<!-- Mappings -->
 		<!-- <mapping class="declare.your.entities.here" /> -->
 		<mapping class="io.hackages.learning.model.Product" />
+		<mapping class="io.hackages.learning.model.Client" />
+		<mapping class="io.hackages.learning.model.Order" />
+		<mapping class="io.hackages.learning.model.OrderDetail" />
+		<mapping class="io.hackages.learning.model.Invoice" />
 
 	</session-factory>
 
