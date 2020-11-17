@@ -2,10 +2,14 @@ package io.hackages.learning;
 
 import io.hackages.learning.dao.CustomerDao;
 import io.hackages.learning.dao.CustomerOrderDao;
+import io.hackages.learning.dao.OrderDetailDao;
 import io.hackages.learning.dao.ProductDao;
 import io.hackages.learning.model.*;
+import io.hackages.learning.util.HibernateUtil;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Session;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.platform.commons.util.CollectionUtils;
@@ -15,17 +19,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @TestMethodOrder(OrderAnnotation.class)
 public class TopicTest {
 
 	private static ProductDao productDao;
 	private static CustomerDao customerDao;
+	private static OrderDetailDao orderDetailDao;
 	private static CustomerOrderDao customerOrderDao;
 
 	@BeforeAll
 	public static void setup() {
 		productDao = new ProductDao();
 		customerDao = new CustomerDao();
+		orderDetailDao = new OrderDetailDao();
 		customerOrderDao = new CustomerOrderDao();
 		System.out.println("Daos created");
 	}
@@ -70,6 +78,16 @@ public class TopicTest {
 		Assertions.assertTrue(Objects.nonNull(customerList));
 		Assertions.assertEquals(2, customerList.size());
 		// Can be refactored
+
+		OrderDetail orderDetail = new OrderDetail(new Product("DogFood", 500, ProductCategory.DOG_FOOD), 10);
+		orderDetailDao.saveOrderDetail(orderDetail);
+
+		orderDetail = new OrderDetail(new Product("DogFood v10", 100, ProductCategory.DOG_FOOD), 6);
+		orderDetailDao.saveOrderDetail(orderDetail);
+
+		orderDetail = new OrderDetail(new Product("DogFood v10", 100, ProductCategory.DOG_FOOD), 8);
+		orderDetailDao.saveOrderDetail(orderDetail);
+
 	}
 
 	@Test
@@ -106,6 +124,13 @@ public class TopicTest {
 
 		UUID uuid = UUID.fromString(customerOrder1.getInvoiceId());
 		Assertions.assertTrue(Objects.nonNull(uuid));
+
+
+		List<String> invoices = customerOrderDao.getGeneratedInvoices();
+		Assertions.assertEquals(1 , invoices.size());
+
+		List<Number> mostPurchasedProduct = orderDetailDao.getMostPurchasedProduct();
+		System.out.println(mostPurchasedProduct);
 	}
 
 }

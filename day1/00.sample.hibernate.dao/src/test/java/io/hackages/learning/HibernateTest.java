@@ -34,7 +34,7 @@ public class HibernateTest {
 	public void testCreate() {
 		System.out.println("Running testCreate..." + productDao);
 		
-		Product product = new Product("my Phone v1", 699);
+		Product product = new Product("my Phone v1", 699,null);
 		Integer id = productDao.saveProduct(product);
 		
 		Assertions.assertTrue(id > 0);
