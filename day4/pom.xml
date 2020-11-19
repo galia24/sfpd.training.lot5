@@ -14,5 +14,7 @@
         <artifactId>sfpd.training.lot5</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    
+	<modules>
+		<module>day4.workshop.arquillian.persistence</module>
+	</modules>
 </project>
